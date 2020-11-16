@@ -139,6 +139,7 @@
   script:
     - echo "*********"
     - cat cxflow-application.yml
+    - pwd
     - cd /root
     - ls -al
     - cd /app
@@ -148,6 +149,9 @@
 
     - *functions
     - cxflow
+    - pwd
+    - ls -al
+    - cd /root
     - ls -al
     - cd /app
     - ls -al
