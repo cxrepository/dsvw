@@ -116,8 +116,13 @@
     SCAN_TYPE_2 : ""
     SCAN_MODE: "scan"
   script:
+    - echo "*********"
+    - cat cxflow-application.yml
     - *functions
     - cxflow
+    - ls -al
+    - cd /opt/sca
+    - ls -al
 
 .cx_ticketing:
   image:
@@ -129,5 +134,8 @@
     SCAN_TYPE_2 : "- sast"
     SCAN_MODE: "project"
   script:
+    - echo "*********"
+    - cat cxflow-application.yml
+    - ls -al
     - *functions
     - cxflow
