@@ -7,6 +7,7 @@
           bug-tracker-impl:
             - GitLab          
             - Jira
+            - WAIT
           enabled-vulnerability-scanners:
             ${SCAN_TYPE_1}
             ${SCAN_TYPE_2}
@@ -123,7 +124,7 @@
     - *functions
     - cxflow
     - ls -al
-    - cd ~/app
+    - cd ~/
     - ls -al
 
 .cx_ticketing:
