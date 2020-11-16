@@ -8,7 +8,8 @@
             - GitLab          
             - Jira
           enabled-vulnerability-scanners:
-            - ${SCAN_TYPE}
+            ${SCAN_TYPE_1}
+            ${SCAN_TYPE_2}
 
         checkmarx:
           version: 9.0
@@ -111,7 +112,8 @@
     entrypoint: ['']
   extends: .application.yml
   variables:
-    SCAN_TYPE: "sast"
+    SCAN_TYPE_1 : "- sast"
+    SCAN_TYPE_2 : ""
     SCAN_MODE: "scan"
   script:
     - *functions
@@ -123,7 +125,8 @@
     entrypoint: ['']
   extends: .application.yml
   variables:
-    SCAN_TYPE: "sca"
+    SCAN_TYPE_1 : "- sca"
+    SCAN_TYPE_2 : "- sast"
     SCAN_MODE: "project"
   script:
     - *functions
