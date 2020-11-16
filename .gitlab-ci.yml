@@ -2,7 +2,7 @@ include: '.checkmarx.yml'
 
 variables:
   BUG_TRACKER: "Jira"
-  JIRA_PROJECT: "JVL"
+  JIRA_PROJECT: "DSVW"
 
 stages:
   - security
