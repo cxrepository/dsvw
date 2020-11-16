@@ -1,0 +1,30 @@
+include: '.checkmarx.yml'
+
+variables:
+  BUG_TRACKER: "Jira"
+  JIRA_PROJECT: "JVL"
+
+stages:
+  - security
+  - ticketing
+
+cx_sca:
+  stage: security
+  only:
+    - master
+    - merge_requests
+  extends: .cx_sca
+
+cx_sast:
+  stage: security
+  only:
+    - master
+    - merge_requests
+  extends: .cx_sast
+
+cx_ticketing:
+  stage: ticketing
+  only:
+    - master
+    - merge_requests
+  extends: .cx_ticketing
