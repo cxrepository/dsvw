@@ -101,7 +101,7 @@
   
 .cx_sca:
   image:
-    name: registry.gitlab.com/fredericmalo/appsec/docker-cxsca-maven:latest
+    name: registry.gitlab.com/fredericmalo/appsec/docker-cxsca-python:latest
   script:
     - ScaResolver -s "." -n "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" -a "${SCA_TENANT}" -u "${SCA_USERNAME}" -p "${SCA_PASSWORD}"
 
