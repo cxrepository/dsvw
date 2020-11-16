@@ -123,6 +123,7 @@
     - cat cxflow-application.yml
     - *functions
     - cxflow
+    - ls -al /tmp
 
 .cx_ticketing:
   image:
@@ -134,7 +135,11 @@
     SCAN_TYPE_2 : "- sast"
     SCAN_MODE: "project"
   script:
+    - ls -al /tmp
     - rm -f /tmp/*
+    - ls -al /temp
     - *functions
     - cxflow
+    - ls -al /tmp
+
 
