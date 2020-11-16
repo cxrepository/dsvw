@@ -124,7 +124,7 @@
     - *functions
     - cxflow
     - ls -al
-    - cd ~/
+    - cd /app
     - ls -al
 
 .cx_ticketing:
