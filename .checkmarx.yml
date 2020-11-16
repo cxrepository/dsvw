@@ -115,13 +115,15 @@
     SCAN_TYPE_1 : "- sast"
     SCAN_TYPE_2 : ""
     SCAN_MODE: "scan"
+    BUG_TRACKER: "WAIT"
+
   script:
     - echo "*********"
     - cat cxflow-application.yml
     - *functions
     - cxflow
     - ls -al
-    - cd /opt/sca
+    - cd ~/app
     - ls -al
 
 .cx_ticketing:
