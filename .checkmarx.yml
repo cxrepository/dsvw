@@ -126,6 +126,8 @@
     - ls -al
     - cd /app
     - ls -al
+    - cd /tmp
+    - ls -al
 
 .cx_ticketing:
   image:
@@ -146,6 +148,8 @@
     - ls -al
     - cd $CI_PROJECT_DIR
     - ls -al
+    - cd /tmp
+    - ls -al
 
     - *functions
     - cxflow
@@ -156,5 +160,7 @@
     - cd /app
     - ls -al
     - cd $CI_PROJECT_DIR
+    - ls -al
+    - cd /tmp
     - ls -al
 
