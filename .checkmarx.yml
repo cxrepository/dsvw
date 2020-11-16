@@ -137,7 +137,7 @@
   script:
     - ls -al /tmp
     - rm -f /tmp/*
-    - ls -al /temp
+    - ls -al /tmp
     - *functions
     - cxflow
     - ls -al /tmp
