@@ -142,3 +142,7 @@
     - ls -al
     - *functions
     - cxflow
+    - ls -al
+    - cd /app
+    - ls -al
+
