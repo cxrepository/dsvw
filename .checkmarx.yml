@@ -139,7 +139,13 @@
   script:
     - echo "*********"
     - cat cxflow-application.yml
+    - cd /root
     - ls -al
+    - cd /app
+    - ls -al
+    - cd $CI_PROJECT_DIR
+    - ls -al
+
     - *functions
     - cxflow
     - ls -al
