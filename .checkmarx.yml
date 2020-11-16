@@ -123,7 +123,7 @@
     entrypoint: ['']
   extends: .application.yml
   variables:
-    SCAN_TYPE: "sca"
+    SCAN_TYPE: ["sast","sca"]
     SCAN_MODE: "project"
   script:
     - *functions
