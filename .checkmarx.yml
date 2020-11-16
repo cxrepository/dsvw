@@ -116,6 +116,7 @@
   script:
     - *functions
     - cxflow
+    - ls -la
 
 .cx_ticketing:
   image:
