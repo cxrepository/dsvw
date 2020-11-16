@@ -134,7 +134,7 @@
     SCAN_TYPE_2 : "- sast"
     SCAN_MODE: "project"
   script:
-    - rm -r /tmp/*
+    - rm -f /tmp/*
     - *functions
     - cxflow
 
