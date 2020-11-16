@@ -1,0 +1,130 @@
+.application.yml:
+  before_script:
+    - |
+        cat <<EOD > cxflow-application.yml
+        cx-flow:
+          bug-tracker: ${BUG_TRACKER}
+          bug-tracker-impl:
+            - GitLab          
+            - Jira
+          enabled-vulnerability-scanners:
+            - ${SCAN_TYPE}
+
+        checkmarx:
+          version: 9.0
+          client-id: resource_owner_client
+          client-secret: 014DF517-39D1-4453-B7B3-9930C563627C
+          scope: access_control_api sast_rest_api
+          multi-tenant: false
+          configuration: Default Configuration
+          scan-preset: ${CHECKMARX_PRESET}
+          base-url: ${CHECKMARX_SERVER}
+          url: ${CHECKMARX_SERVER}/CxRestAPI/
+          portal-url: ${CHECKMARX_SERVER}/cxwebinterface/Portal/CxWebService.asmx
+          incremental: false
+
+        sca:
+          appUrl: https://sca.checkmarx-eu.net
+          apiUrl: https://eu.api-sca.checkmarx.net/
+          accessControlUrl: https://eu.platform.checkmarx.net
+
+        gitlab:
+          api-url: https://gitlab.com/api/v4/
+          false-positive-label: false-positive
+          url: https://gitlab.com
+          error-merge: true
+          cx-summary: true
+          file-path: ./gl-sast-report.json
+          token: ${SECURITY_AGENT_GITLAB_TOKEN}
+
+        jira:
+          url: ${JIRA_URL}
+          username: ${JIRA_USERNAME}
+          token: ${JIRA_TOKEN}
+          project: ${JIRA_PROJECT}
+          issue-type: Bug
+          priorities:
+            High: High
+            Medium: Medium
+            Low: Low
+            Informational: Lowest
+          open-transition: In Progress
+          close-transition: Done
+          open-status:
+            - Backlog
+            - Selected for Development
+            - In Progress
+          closed-status:
+            - Done
+          fields:
+            - type: result
+              name: application
+              jira-field-name: Application
+              jira-field-type: label
+            - type: result
+              name: category
+              jira-field-name: Category
+              jira-field-type: label
+
+        EOD
+
+.functions: &functions |
+  function cxflow() {
+    echo '*********** Checkmarx Scan with CxFlow - GitLab integration ****************'
+    
+    if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
+      echo '*********** MERGE REQUEST CASE ************'
+      echo "${SCAN_MODE}"
+
+      java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+        --${SCAN_MODE} \
+        --app="${CI_PROJECT_NAME}" \
+        --project-id=${CI_PROJECT_ID} \
+        --merge-id=${CI_MERGE_REQUEST_IID} \
+        --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+        --bug-tracker=GITLABMERGE \
+        --f=.        
+    else
+      echo '*********** PROTECTED BRANCH CASE ************'
+      echo "${SCAN_MODE}"
+       
+      java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+        --${SCAN_MODE} \
+        --app="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+        --branch="${CI_COMMIT_REF_NAME}" \
+        --repo-name="${CI_PROJECT_NAME}" \
+        --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+        --namespace="${CI_PROJECT_NAMESPACE}" \
+        --f=.
+    fi
+  }
+  
+.cx_sca:
+  image:
+    name: registry.gitlab.com/fredericmalo/appsec/docker-cxsca-maven:latest
+  script:
+    - ScaResolver -s "." -n "${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" -a "${SCA_TENANT}" -u "${SCA_USERNAME}" -p "${SCA_PASSWORD}"
+
+.cx_sast:
+  image:
+    name: docker.io/checkmarx/cx-flow
+    entrypoint: ['']
+  extends: .application.yml
+  variables:
+    SCAN_TYPE: "sast"
+    SCAN_MODE: "scan"
+  script:
+    - *functions
+    - cxflow
+
+.cx_ticketing:
+  image:
+    name: docker.io/checkmarx/cx-flow
+    entrypoint: ['']
+  extends: .application.yml
+  variables:
+    SCAN_TYPE: "sca"
+    SCAN_MODE: "project"
+  script:
+    - *functions
+    - cxflow
