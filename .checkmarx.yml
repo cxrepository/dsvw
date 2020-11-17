@@ -77,14 +77,21 @@
     if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
       echo '*********** MERGE REQUEST CASE ************'
       echo "${SCAN_MODE}"
+      echo "${BUG_TRACKER}"
+      if [ "$BUG_TRACKER" == "WAIT" ]; then
+        PUBLISH_TO_MR=""
+      else 
+        PUBLISH_TO_MR="--merge-id=${CI_MERGE_REQUEST_IID} --bug-tracker=GITLABMERGE"
+      fi
+      echo "${PUBLISH_TO_MR}"
+      echo "***"
 
       java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
         --${SCAN_MODE} \
         --app="${CI_PROJECT_NAME}" \
         --project-id=${CI_PROJECT_ID} \
-        --merge-id=${CI_MERGE_REQUEST_IID} \
+        ${PUBLISH_TO_MR} \
         --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
-        --bug-tracker=GITLABMERGE \
         --f=.        
     else
       echo '*********** PROTECTED BRANCH CASE ************'
