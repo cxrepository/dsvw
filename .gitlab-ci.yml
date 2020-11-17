@@ -6,6 +6,7 @@ variables:
 
 stages:
   - security
+  - security2
   - ticketing
 
 cx_sca:
@@ -17,6 +18,13 @@ cx_sca:
 
 cx_sast:
   stage: security
+  only:
+    - master
+    - merge_requests
+  extends: .cx_sast
+
+cx_sast2:
+  stage: security2
   only:
     - master
     - merge_requests
