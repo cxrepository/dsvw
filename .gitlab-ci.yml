@@ -22,9 +22,9 @@ cx_sast:
     - merge_requests
   extends: .cx_sast
 
-#cx_ticketing:
-#  stage: ticketing
-#  only:
-#    - master
-#    - merge_requests
-#  extends: .cx_ticketing
+cx_ticketing:
+  stage: ticketing
+  only:
+    - master
+    - merge_requests
+  extends: .cx_ticketing
