@@ -12,7 +12,7 @@ cx_sca:
   stage: security
   only:
     - master
-    - merge_requests
+    - merge_requests 
   extends: .cx_sca
 
 cx_sast:
