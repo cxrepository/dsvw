@@ -143,6 +143,7 @@
     - cat /tmp/CxFlowReport.json
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
     - cat ${CI_PROJECT_DIR}/cx-logs.log
+    - ls -al /.../gitlab/shared/tmp
     
   artifacts:
     paths:
