@@ -1,5 +1,3 @@
-
-
 .functions: &functions |
   function cxflow() {
     echo '*********** Checkmarx Scan with CxFlow - GitLab integration ****************'
@@ -141,14 +139,10 @@
     - cat /tmp/CxFlowReport.json
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
     - cat ${CI_PROJECT_DIR}/cx-logs.log
-    - ls -al /var/
-    - ls -al /var/opt/
-    - ls -al /var/opt/gitlab
-    - ls -al /var/opt/gitlab/gitlab-rails
-    - ls -al /var/opt/gitlab/gitlab-rails/shared
+    - ls -al /home/
+    - ls -al /home/gitlab-runner 
+    - ls -al /home/gitlab-runner/cache 
     
-
-
   artifacts:
     paths:
       - ${CI_PROJECT_DIR}/cx-logs.log
