@@ -160,6 +160,8 @@
   script:
     - ls -al /tmp
     - ls -al ${CI_PROJECT_DIR}
+    - rm -f ${CI_PROJECT_DIR}/cx-logs.log
+    - rm -f ${CI_PROJECT_DIR}/CxFlowReport.json
     - |
       if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
         echo '*********** MERGE REQUEST CASE ************'
