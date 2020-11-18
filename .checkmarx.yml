@@ -159,8 +159,7 @@
     SCAN_MODE: "project"
   script:
     - ls -al /tmp
-    - rm -f /tmp/*
-    - ls -al /tmp
+    - ls -al ${CI_PROJECT_DIR}
     - |
       if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
         echo '*********** MERGE REQUEST CASE ************'
