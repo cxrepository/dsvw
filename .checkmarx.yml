@@ -83,38 +83,7 @@
   function cxflow() {
     echo '*********** Checkmarx Scan with CxFlow - GitLab integration ****************'
     
-    if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
-      echo '*********** MERGE REQUEST CASE ************'
-      echo "${SCAN_MODE}"
-      echo "${BUG_TRACKER}"
-      if [ "$BUG_TRACKER" == "WAIT" ]; then
-        PUBLISH_TO_MR=""
-      else 
-        PUBLISH_TO_MR="--merge-id=${CI_MERGE_REQUEST_IID} --bug-tracker=GITLABMERGE"
-      fi
-      echo "${PUBLISH_TO_MR}"
-      echo "***"
 
-      java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
-        --${SCAN_MODE} \
-        --app="${CI_PROJECT_NAME}" \
-        --project-id=${CI_PROJECT_ID} \
-        ${PUBLISH_TO_MR} \
-        --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
-        --f=.        
-    else
-      echo '*********** PROTECTED BRANCH CASE ************'
-      echo "${SCAN_MODE}"
-       
-      java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
-        --${SCAN_MODE} \
-        --app="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
-        --branch="${CI_COMMIT_REF_NAME}" \
-        --repo-name="${CI_PROJECT_NAME}" \
-        --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
-        --namespace="${CI_PROJECT_NAMESPACE}" \
-        --f=.
-    fi
   }
   
 .cx_sca:
@@ -136,8 +105,39 @@
   script:
     - echo "*********"
     - cat cxflow-application.yml
-    - *functions
-    - cxflow
+    - |
+      if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
+        echo '*********** MERGE REQUEST CASE ************'
+        echo "${SCAN_MODE}"
+        echo "${BUG_TRACKER}"
+        if [ "$BUG_TRACKER" == "WAIT" ]; then
+          PUBLISH_TO_MR=""
+        else 
+          PUBLISH_TO_MR="--merge-id=${CI_MERGE_REQUEST_IID} --bug-tracker=GITLABMERGE"
+        fi
+        echo "${PUBLISH_TO_MR}"
+        echo "***"
+
+        java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+          --${SCAN_MODE} \
+          --app="${CI_PROJECT_NAME}" \
+          --project-id=${CI_PROJECT_ID} \
+          ${PUBLISH_TO_MR} \
+          --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --f=.        
+      else
+        echo '*********** PROTECTED BRANCH CASE ************'
+        echo "${SCAN_MODE}"
+        
+        java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+          --${SCAN_MODE} \
+          --app="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --branch="${CI_COMMIT_REF_NAME}" \
+          --repo-name="${CI_PROJECT_NAME}" \
+          --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --namespace="${CI_PROJECT_NAMESPACE}" \
+          --f=.
+      fi    
     - ls -al /tmp
     - cat /tmp/CxFlowReport.json
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
@@ -161,8 +161,39 @@
     - ls -al /tmp
     - rm -f /tmp/*
     - ls -al /tmp
-    - *functions
-    - cxflow
+    - |
+      if [ "$CI_PIPELINE_SOURCE" == "merge_request_event" ]; then
+        echo '*********** MERGE REQUEST CASE ************'
+        echo "${SCAN_MODE}"
+        echo "${BUG_TRACKER}"
+        if [ "$BUG_TRACKER" == "WAIT" ]; then
+          PUBLISH_TO_MR=""
+        else 
+          PUBLISH_TO_MR="--merge-id=${CI_MERGE_REQUEST_IID} --bug-tracker=GITLABMERGE"
+        fi
+        echo "${PUBLISH_TO_MR}"
+        echo "***"
+
+        java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+          --${SCAN_MODE} \
+          --app="${CI_PROJECT_NAME}" \
+          --project-id=${CI_PROJECT_ID} \
+          ${PUBLISH_TO_MR} \
+          --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --f=.        
+      else
+        echo '*********** PROTECTED BRANCH CASE ************'
+        echo "${SCAN_MODE}"
+        
+        java -jar /app/cx-flow.jar --spring.config.location=./cxflow-application.yml \
+          --${SCAN_MODE} \
+          --app="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --branch="${CI_COMMIT_REF_NAME}" \
+          --repo-name="${CI_PROJECT_NAME}" \
+          --cx-project="${CI_PROJECT_NAME}-${CI_COMMIT_REF_NAME}" \
+          --namespace="${CI_PROJECT_NAMESPACE}" \
+          --f=.
+      fi
     - ls -al /tmp
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
 
