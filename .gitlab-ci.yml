@@ -28,3 +28,4 @@ cx_ticketing:
     - master
     - merge_requests
   extends: .cx_ticketing
+ 
