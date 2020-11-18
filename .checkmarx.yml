@@ -3,7 +3,14 @@
     - |
         cat <<EOD > cxflow-application.yml
         logging:
-          file: ${CI_PROJECT_DIR}/cx-logs.log
+          file:
+            name: /tmp/cx-logs.log
+            level:
+              com:
+                checkmarx:
+                  sdk:
+                    service:
+                      CxService:TRACE
         cx-flow:
           bug-tracker: ${BUG_TRACKER}
           bug-tracker-impl:
