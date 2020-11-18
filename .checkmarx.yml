@@ -156,7 +156,7 @@
   variables:
     SCAN_TYPE_1 : "- sca"
     SCAN_TYPE_2 : "- sast"
-    SCAN_MODE: "project"
+    SCAN_MODE: "scan"
   script:
     - ls -al /tmp
     - ls -al ${CI_PROJECT_DIR}
