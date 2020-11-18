@@ -147,6 +147,7 @@
   artifacts:
     paths:
       - ${CI_PROJECT_DIR}/cx-logs.log
+      - ${CI_PROJECT_DIR}/CxFlowReport.json
     expire_in: 1 month
 
 .cx_ticketing:
