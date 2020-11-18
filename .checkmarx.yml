@@ -131,6 +131,7 @@
     - *functions
     - cxflow
     - ls -al /tmp
+    - cat /tmp/CxFlowReport.json
 
 .cx_ticketing:
   image:
