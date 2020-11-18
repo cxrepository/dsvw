@@ -138,10 +138,6 @@
     - ls -al /tmp
     - cat /tmp/CxFlowReport.json
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
-    - cat ${CI_PROJECT_DIR}/cx-logs.log
-    - ls -al /home/
-    - ls -al /home/gitlab-runner 
-    - ls -al /home/gitlab-runner/cache 
     
   artifacts:
     paths:
@@ -244,7 +240,6 @@
     - cxflow
     - ls -al /tmp
     - cp /tmp/CxFlowReport.json ${CI_PROJECT_DIR}
-    - cat ${CI_PROJECT_DIR}/cx-logs.log
 
   artifacts:
     paths:
