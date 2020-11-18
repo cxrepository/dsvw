@@ -3,14 +3,7 @@
     - |
         cat <<EOD > cxflow-application.yml
         logging:
-          file:
-            name: /root/cx-logs.log
-            level:
-              com:
-                checkmarx:
-                  sdk:
-                    service:
-                      CxService:TRACE
+          file: /tmp/cx-logs.log
         cx-flow:
           bug-tracker: ${BUG_TRACKER}
           bug-tracker-impl:
@@ -143,7 +136,7 @@
     - cat /tmp/CxFlowReport.json
   artifacts:
     paths:
-      - /root/cx-logs.log
+      - /tmp/cx-logs.log
     expire_in: 1 month
 
 .cx_ticketing:
@@ -164,6 +157,6 @@
     - ls -al /tmp
   artifacts:
     paths:
-      - /root/cx-logs.log
+      - /tmp/cx-logs.log
     expire_in: 1 month
 
