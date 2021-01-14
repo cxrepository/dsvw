@@ -21,6 +21,11 @@
             ${SCAN_TYPE_1}
             ${SCAN_TYPE_2}
 
+        codebashing:
+          codebashingApiUrl: https://api.codebashing.com/lessons
+          tenantBaseUrl: https://checkmarx-demo.codebashing.com
+          apiSecret: ${CODEBASHING_TOKEN}
+
         checkmarx:
           version: 9.0
           client-id: resource_owner_client
