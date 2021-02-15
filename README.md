@@ -1,3 +1,3 @@
-# Python Damn Small Vulnerable Web
+# Github Actions Demo
 
 Python project
