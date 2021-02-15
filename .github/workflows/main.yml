@@ -34,7 +34,7 @@ jobs:
           # Provide Checkmarx URL
           checkmarx_url: ${{secrets.CHECKMARX_URL}}
           # Provide team
-          team: /CxServer/SP/EMEA/UK
+          team: /CxServer/SP/EMEA/French_Team
           #team: /CxServer
           # Provide Checkmarx Username
           checkmarx_username: ${{secrets.CHECKMARX_USERNAME}}
@@ -58,3 +58,7 @@ jobs:
           params: --cx-flow.bug-tracker=GitHub --repo-name=dsvw --namespace=cxrepository --branch=master --repo-url=https://github.com/cxrepository/dsvw.git
           #params: --cx-flow.filter-state=Confirmed,Urgent --bug-tracker=NONE --config=cx.config --repo-name=DSVW --namespace=jbruinaud --branch=master --jira.url=${{secrets.JIRA_URL}} --jira.username=${{secrets.JIRA_USER}} --jira.token=${{secrets.JIRA_TOKEN}}
 
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: cx.sarif
